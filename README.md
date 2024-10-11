@@ -12,12 +12,12 @@ A few resources to get you started if this is your first Flutter project:
 
 <!-- Variables -->
 
-[home]: screenShots/home.jpg 'home'
-[register]: screenShots/register.jpg 'register'
-[login]: screenShots/login.jpg 'login'
-[settings]: screenShots/setting1.jpg 'setting1'
-[settings]: screenShots/setting2.jpg 'setting2'
-[settings]: screenShots/setting3.jpg 'setting3'
+[home]: screenshots/home.jpg 'home'
+[register]: screenshots/register.jpg 'register'
+[login]: screenshots/login.jpg 'login'
+[settings]: screenshots/setting1.jpg 'setting1'
+[settings]: screenshots/setting2.jpg 'setting2'
+[settings]: screenshots/setting3.jpg 'setting3'
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
