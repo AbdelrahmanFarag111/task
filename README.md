@@ -8,6 +8,9 @@ This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
+## 📸 Screenshots
+
+<!-- Variables -->
 
 [home]: screenShots/home.jpg 'home'
 [register]: screenShots/register.jpg 'register'
