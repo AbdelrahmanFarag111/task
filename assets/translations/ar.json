@@ -1,0 +1,15 @@
+{
+
+
+  "login" : "تسجيل الدخول",
+  "email" : "البريد الإلكتروني",
+  "password" :"كلمة المرور",
+  "Do you Have An Account?" : "هل تمتلك حساب؟",
+  "register" : "إنشاء حساب جديد",
+  "arabic" : "عربى",
+  "english " :  "انجليزى ",
+  "settings" : "الاعدادات",
+  "language" : "اللغة",
+  "logout" : "تسجيل خروج",
+  "changeUserName" : "تغير الاسم"
+}
