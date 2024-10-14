@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graphql/client.dart';
 import 'package:provider/provider.dart';
 import 'package:task/firebase_options.dart';
 import 'package:task/providers/auth_provider.dart';
@@ -16,16 +17,30 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        Locale('en'),
         Locale('ar'),
+        Locale('en'),
       ],
       path: 'assets/translations',
       // <-- change the path of the translation files
-      fallbackLocale: const Locale('en'),
+      fallbackLocale: const Locale('ar'),
       child: const MyApp(),
     ),
   );
 }
+
+final HttpLink _httpLink = HttpLink(
+  "<YOUR-BASE-URL>",
+  defaultHeaders: {
+    'Authorization': 'Bearer <YOUR_PERSONAL_ACCESS_TOKEN>',
+    'AuthorizationSource': 'API',
+  },
+);
+
+
+final ValueNotifier<GraphQLClient> client = ValueNotifier(GraphQLClient(
+  link: _httpLink,
+  cache: GraphQLCache(),
+));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -46,8 +61,8 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
             locale: context.locale,
             home: child,
           ),

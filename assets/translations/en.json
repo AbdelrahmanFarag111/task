@@ -2,7 +2,7 @@
   "login" : "Login",
   "email" : "Email",
   "password" : "Password",
-  "Do you Have An Account?" : "Do you Have An Account?",
+  "doYouHaveAnAccount" : "Do you Have An Account?",
   "register" : "Register",
   "arabic" : "Arabic",
   "english " : "English ",

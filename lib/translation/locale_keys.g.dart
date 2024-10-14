@@ -4,7 +4,7 @@ abstract class  LocaleKeys {
   static const login = 'login';
   static const email = 'email';
   static const password = 'password';
-  static const doyouHaveAnAccount = 'Do you Have An Account?';
+  static const doYouHaveAnAccount = 'doYouHaveAnAccount';
   static const register = 'register';
   static const arabic = 'arabic';
   static const english  = 'english ';

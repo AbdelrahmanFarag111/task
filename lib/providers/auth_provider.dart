@@ -8,11 +8,16 @@ class AuthProvider extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   String? username = 'username';
+  bool hidePassword = true;
 
-  AuthProvider({this.username});
+  AuthProvider({this.username,});
 
   void changeUserName(String newUserName) {
     username = newUserName;
+    notifyListeners();
+  }
+  void protectText(){
+    hidePassword = !hidePassword;
     notifyListeners();
   }
 

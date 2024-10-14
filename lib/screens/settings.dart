@@ -17,9 +17,9 @@ class Settings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.red,
-        title: const Text(
-          LocaleKeys.settings,
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          LocaleKeys.settings.tr(),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: Column(
@@ -68,7 +68,7 @@ class Settings extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                      LocaleKeys.changeUserName,
+                      LocaleKeys.changeUserName.tr(),
                         style: TextStyle(fontSize: 16.sp, color: Colors.white),
                       ),
                       SizedBox(
@@ -99,7 +99,7 @@ class Settings extends StatelessWidget {
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
                             child: Text(
-                              LocaleKeys.arabic,
+                              LocaleKeys.arabic.tr(),
                               style: TextStyle(
                                   fontSize: 20.sp, color: Colors.black),
                             ),
@@ -113,7 +113,7 @@ class Settings extends StatelessWidget {
                               FocusManager.instance.primaryFocus?.unfocus();
                             },
                             child: Text(
-                              LocaleKeys.english,
+                              LocaleKeys.english.tr(),
                               style: TextStyle(
                                   fontSize: 20.sp, color: Colors.black),
                             ),
@@ -136,7 +136,7 @@ class Settings extends StatelessWidget {
                   width: 15.w,
                 ),
                 Text(
-                  LocaleKeys.language,
+                  LocaleKeys.language.tr(),
                   style: TextStyle(fontSize: 18.sp),
                 ),
                 const Expanded(
@@ -177,7 +177,7 @@ class Settings extends StatelessWidget {
                   width: 15.w,
                 ),
                 Text(
-                  LocaleKeys.logout,
+                  LocaleKeys.logout.tr(),
                   style: TextStyle(fontSize: 18.sp),
                 ),
                 const Expanded(

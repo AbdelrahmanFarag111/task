@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    bool hide = false;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(backgroundColor: Colors.transparent, actions: [
@@ -35,7 +37,7 @@ class SignUp extends StatelessWidget {
               height: 80.h,
             ),
             Text(
-              LocaleKeys.register,
+              LocaleKeys.register.tr(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
@@ -44,38 +46,51 @@ class SignUp extends StatelessWidget {
             SizedBox(
               height: 80.h,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintStyle: const TextStyle(color: Colors.white),
-                    hintText: LocaleKeys.email,
-                    fillColor: MyColors.grey,
-                    suffixIcon: const Icon(Icons.person),
-                    suffixIconColor: Colors.white,
-                    filled: true,
-                    contentPadding: EdgeInsets.all(8.sp),
-                  ),
+            Center(
+              child: SizedBox(
+                width: 280.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        hintText: LocaleKeys.email.tr(),
+                        fillColor: MyColors.grey,
+                        suffixIcon: const Icon(Icons.person),
+                        suffixIconColor: Colors.white,
+                        filled: true,
+                        contentPadding: EdgeInsets.all(8.sp),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: !context.watch<AuthProvider>().hidePassword,
+                      decoration: InputDecoration(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        hintText: LocaleKeys.password.tr(),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            context.read<AuthProvider>().protectText();
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          },
+                          child: Icon(context.watch<AuthProvider>().hidePassword
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                        suffixIconColor: Colors.white,
+                        fillColor: MyColors.grey,
+                        filled: true,
+                        contentPadding: EdgeInsets.all(8.sp),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                TextField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    hintStyle: const TextStyle(color: Colors.white),
-                    hintText: LocaleKeys.password,
-                    suffixIcon: const Icon(Icons.key),
-                    prefixIcon:const Icon( Icons.visibility_off,),
-                    suffixIconColor: Colors.white,
-                    fillColor: MyColors.grey,
-                    filled: true,
-                    contentPadding: EdgeInsets.all(8.sp),
-                  ),
-                ),
-              ],
+              ),
             ),
             SizedBox(
               height: 20.h,
@@ -83,7 +98,7 @@ class SignUp extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.grey,
-                fixedSize: Size(300.w, 50.h),
+                fixedSize: Size(250.w, 50.h),
               ),
               onPressed: () async {
                 await context.read<AuthProvider>().register(
@@ -99,7 +114,7 @@ class SignUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    LocaleKeys.register,
+                    LocaleKeys.register.tr(),
                     style: TextStyle(fontSize: 16.sp, color: Colors.white),
                   ),
                   SizedBox(
@@ -118,7 +133,7 @@ class SignUp extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: MyColors.lightRed,
-                fixedSize: Size(300.w, 50.h),
+                fixedSize: Size(250.w, 50.h),
                 side: const BorderSide(width: 3.0, color: MyColors.lightRed),
               ),
               onPressed: () {
@@ -131,7 +146,7 @@ class SignUp extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    LocaleKeys.login,
+                    LocaleKeys.login.tr(),
                     style: TextStyle(fontSize: 16.sp, color: Colors.white),
                   ),
                   SizedBox(

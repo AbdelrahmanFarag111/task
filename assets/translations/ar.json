@@ -1,10 +1,8 @@
 {
-
-
   "login" : "تسجيل الدخول",
   "email" : "البريد الإلكتروني",
   "password" :"كلمة المرور",
-  "Do you Have An Account?" : "هل تمتلك حساب؟",
+  "doYouHaveAnAccount" : "هل تمتلك حساب؟",
   "register" : "إنشاء حساب جديد",
   "arabic" : "عربى",
   "english " :  "انجليزى ",
