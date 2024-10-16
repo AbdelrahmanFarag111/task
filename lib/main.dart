@@ -7,36 +7,23 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task/firebase_options.dart';
 import 'package:task/providers/auth_provider.dart';
-import 'package:task/screens/add_request_screen.dart';
-import 'package:task/screens/create_ticket_reply_screen.dart';
 import 'package:task/screens/home.dart';
-import 'package:task/screens/requests_screen.dart';
-import 'package:task/screens/settings.dart';
+
 
 void main() async {
-  // final HttpLink httpLink =
-  //     HttpLink("https://accurate.accuratess.com:8001/graphql");
-  // final ValueNotifier<GraphQLClient> gClient =
-  //     ValueNotifier<GraphQLClient>(GraphQLClient(
-  //   link: httpLink,
-  //   cache: GraphQLCache(),
-  // ));
+
 
   Future<ValueNotifier<GraphQLClient>> initializeClient(String token) async {
-    // Create an HTTP Link to your GraphQL endpoint
     final HttpLink httpLink = HttpLink(
-      'https://accurate.accuratess.com:8001/graphql', // Replace with your API URL
+      'https://accurate.accuratess.com:8001/graphql',
     );
 
-    // Set up AuthLink to include the Authorization header
     final AuthLink authLink = AuthLink(
-      getToken: () async => 'Bearer $token', // Add your token here
+      getToken: () async => 'Bearer $token',
     );
 
-    // Combine the authLink and httpLink
     final Link link = authLink.concat(httpLink);
 
-    // Initialize the GraphQL client
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
         link: link,
@@ -49,10 +36,9 @@ void main() async {
 
 
   Future<String> getToken() async {
-    // This is an example function. Replace it with your logic to get a token.
     return '666|96y7MjWalc8ekpnYhaoDWBckqv73m1NLfdqd31lY8f5c8a3d';
   }
-  final token = await getToken(); // Replace with your logic to fetch token
+  final token = await getToken();
   final gClient = await initializeClient(token);
 
   WidgetsFlutterBinding.ensureInitialized();
