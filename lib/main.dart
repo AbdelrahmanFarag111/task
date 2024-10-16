@@ -104,7 +104,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const Settings(),
+      child: const HomeScreen(),
     );
   }
 }

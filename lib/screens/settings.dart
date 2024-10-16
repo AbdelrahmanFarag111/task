@@ -40,9 +40,8 @@ class Settings extends StatelessWidget {
                     Icons.person,
                     size: 60.sp,
                   ),
-                  // context.watch<AuthProvider>().username!??
                   Text(
-                    'username',
+                    context.watch<AuthProvider>().username!,
                     style: TextStyle(
                       fontSize: 22.sp,
                       color: Colors.white,
