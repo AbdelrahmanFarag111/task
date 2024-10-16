@@ -9,5 +9,19 @@
   "settings" : "الاعدادات",
   "language" : "اللغة",
   "logout" : "تسجيل خروج",
-  "changeUserName" : "تغير الاسم"
+  "changeUserName" : "تغير الاسم",
+  "addRequest": "إضافة طلب",
+  "requestScreen": "عرض طلب",
+  "createTicketReply": "إنشاء تذكرة رد",
+  "payeeName": "اسم المدفوع له",
+  "typeCode": "نوع الكود",
+  "date": "التاريخ",
+  "deliveryTypeCode": "رمز نوع التسليم",
+  "saveRequest": "حفظ الطلب",
+  "id": "id",
+  "notes": "ملاحظات",
+  "replyBody": "الرد",
+  "submitReply": "تأكيد الرد",
+  "request": "الطلب",
+  "paymentAccountNumber": "رقم حساب الدفع"
 }

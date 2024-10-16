@@ -9,5 +9,19 @@
   "settings" : "Settings",
   "language" : "language",
   "logout" : "Logout",
-  "changeUserName" : "Change User Name"
+  "changeUserName" : "Change User Name",
+  "addRequest": "Add Request",
+  "requestScreen": "Show request",
+  "createTicketReply": "Create Ticket Reply",
+  "payeeName": "Payee Name",
+  "typeCode": "Type Code",
+  "date": "Date",
+  "deliveryTypeCode": "delivery type code",
+  "saveRequest": "Save Request",
+  "id": "id",
+  "notes": "notes",
+  "replyBody": "the Body",
+  "submitReply": "Submit Reply",
+  "request": "request",
+  "paymentAccountNumber": "Payment Account Number"
 }

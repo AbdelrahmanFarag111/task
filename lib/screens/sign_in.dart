@@ -1,8 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:task/graphql/App_mutation.dart';
 import 'package:task/providers/auth_provider.dart';
+import 'package:task/screens/add_request_screen.dart';
 import 'package:task/screens/settings.dart';
 import 'package:task/screens/sign_up.dart';
 import 'package:task/translation/locale_keys.g.dart';
@@ -40,8 +44,7 @@ class SignIn extends StatelessWidget {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.sp,
-                  color: Colors.white
-              ),
+                  color: Colors.white),
             ),
             SizedBox(
               height: 80.h,
@@ -56,7 +59,7 @@ class SignIn extends StatelessWidget {
                       controller: emailController,
                       decoration: InputDecoration(
                         hintStyle: const TextStyle(color: Colors.white),
-                        hintText:LocaleKeys.email.tr(),
+                        hintText: LocaleKeys.email.tr(),
                         fillColor: MyColors.grey,
                         suffixIcon: const Icon(Icons.person),
                         suffixIconColor: Colors.white,
@@ -94,38 +97,66 @@ class SignIn extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: MyColors.lightRed,
-                fixedSize: Size(250.w, 50.h),
-                side: const BorderSide(width: 3.0, color: MyColors.lightRed),
+            Mutation(
+              options: MutationOptions(
+                document: gql(AppMutation.login),
+                onCompleted: (dynamic resultData) {
+                  if (kDebugMode) {
+                    print(resultData);
+                  }
+                  if (resultData != null) {
+                    final user = resultData['login']['user'];
+                    final token = resultData['login']['token'];
+                    if (kDebugMode) {
+                      print('Logged in user: ${user['username']}');
+                    }
+                    if (kDebugMode) {
+                      print('Token: $token');
+                    }
+                  }
+                },
+                onError: (e) {
+                  _showSnackBar(context, e.toString(), false);
+                  if (kDebugMode) {
+                    print(e);
+                  }
+                },
               ),
-              onPressed: () async{
-                await context.read<AuthProvider>().login(
-                    email: emailController.text,
-                    password: passwordController.text);
-                FocusManager.instance.primaryFocus?.unfocus();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Settings()),
+              builder: (
+                RunMutation? runMutation,
+                QueryResult? result,
+              ) {
+                return TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: MyColors.grey,
+                    fixedSize: Size(250.w, 50.h),
+                  ),
+                  onPressed: () {
+                    if (emailController.text.isEmpty ||
+                        emailController.text.isEmpty) {
+                      _showSnackBar(context, "Fill the fields", false);
+                    } else {
+                      context.read<AuthProvider>().changeUserName(emailController.text);
+                      runMutation!({
+                        'username': emailController.text,
+                        'password': passwordController.text,
+                        'fcmToken': '',
+                        'rememberMe': false,
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Settings()),
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.check, color: Colors.white),
+                  label: Text(
+                    LocaleKeys.login.tr(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    LocaleKeys.login.tr(),
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  const Icon(
-                    Icons.lock,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
             ),
             SizedBox(
               height: 40.h,
@@ -136,7 +167,10 @@ class SignIn extends StatelessWidget {
                 fixedSize: Size(250.w, 50.h),
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const SignUp()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUp()),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -160,5 +194,15 @@ class SignIn extends StatelessWidget {
       ),
     );
   }
-}
 
+  void _showSnackBar(BuildContext context, String theMessage, bool succsess) {
+    final snackBar = SnackBar(
+        content: ListTile(
+            title: Text(theMessage),
+            leading: succsess
+                ? const Icon(Icons.check, color: Colors.green)
+                : const Icon(Icons.close, color: Colors.red)),
+        backgroundColor: Colors.red);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+}

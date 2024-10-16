@@ -7,4 +7,5 @@ class MyColors{
   static const red = Color(0xFFF54335);
   static const purple = Color(0xFFAD9ECB);
   static const darkGrey = Color(0xFF35343A);
+  static const offWhite = Color(0xFFE6E1E8);
 }

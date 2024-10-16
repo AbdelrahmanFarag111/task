@@ -3,12 +3,58 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graphql/client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:task/firebase_options.dart';
 import 'package:task/providers/auth_provider.dart';
+import 'package:task/screens/add_request_screen.dart';
+import 'package:task/screens/create_ticket_reply_screen.dart';
 import 'package:task/screens/home.dart';
+import 'package:task/screens/requests_screen.dart';
+import 'package:task/screens/settings.dart';
 
 void main() async {
+  // final HttpLink httpLink =
+  //     HttpLink("https://accurate.accuratess.com:8001/graphql");
+  // final ValueNotifier<GraphQLClient> gClient =
+  //     ValueNotifier<GraphQLClient>(GraphQLClient(
+  //   link: httpLink,
+  //   cache: GraphQLCache(),
+  // ));
+
+  Future<ValueNotifier<GraphQLClient>> initializeClient(String token) async {
+    // Create an HTTP Link to your GraphQL endpoint
+    final HttpLink httpLink = HttpLink(
+      'https://accurate.accuratess.com:8001/graphql', // Replace with your API URL
+    );
+
+    // Set up AuthLink to include the Authorization header
+    final AuthLink authLink = AuthLink(
+      getToken: () async => 'Bearer $token', // Add your token here
+    );
+
+    // Combine the authLink and httpLink
+    final Link link = authLink.concat(httpLink);
+
+    // Initialize the GraphQL client
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
+      GraphQLClient(
+        link: link,
+        cache: GraphQLCache(store: InMemoryStore()),
+      ),
+    );
+
+    return client;
+  }
+
+
+  Future<String> getToken() async {
+    // This is an example function. Replace it with your logic to get a token.
+    return '666|96y7MjWalc8ekpnYhaoDWBckqv73m1NLfdqd31lY8f5c8a3d';
+  }
+  final token = await getToken(); // Replace with your logic to fetch token
+  final gClient = await initializeClient(token);
+
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
@@ -23,27 +69,14 @@ void main() async {
       path: 'assets/translations',
       // <-- change the path of the translation files
       fallbackLocale: const Locale('ar'),
-      child: const MyApp(),
+      child:  MyApp(gClient),
     ),
   );
 }
 
-final HttpLink _httpLink = HttpLink(
-  "<YOUR-BASE-URL>",
-  defaultHeaders: {
-    'Authorization': 'Bearer <YOUR_PERSONAL_ACCESS_TOKEN>',
-    'AuthorizationSource': 'API',
-  },
-);
-
-
-final ValueNotifier<GraphQLClient> client = ValueNotifier(GraphQLClient(
-  link: _httpLink,
-  cache: GraphQLCache(),
-));
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp( this.gClient);
+  final ValueNotifier<GraphQLClient> gClient;
 
   // This widget is the root of your application.
   @override
@@ -59,16 +92,19 @@ class MyApp extends StatelessWidget {
               create: (context) => AuthProvider(),
             ),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            locale: context.locale,
-            home: child,
+          child: GraphQLProvider(
+            client: gClient,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              locale: context.locale,
+              home: child,
+            ),
           ),
         );
       },
-      child: const HomeScreen(),
+      child: const Settings(),
     );
   }
 }

@@ -15,7 +15,6 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    bool hide = false;
     return Scaffold(
       backgroundColor: MyColors.backgroundColor,
       appBar: AppBar(backgroundColor: Colors.transparent, actions: [
@@ -107,7 +106,7 @@ class SignUp extends StatelessWidget {
                 FocusManager.instance.primaryFocus?.unfocus();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Settings()),
+                  MaterialPageRoute(builder: (context) => Settings()),
                 );
               },
               child: Row(

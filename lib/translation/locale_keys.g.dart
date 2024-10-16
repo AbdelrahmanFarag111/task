@@ -12,5 +12,19 @@ abstract class  LocaleKeys {
   static const language = 'language';
   static const logout = 'logout';
   static const changeUserName = 'changeUserName';
+  static const addRequest = 'addRequest';
+  static const requestScreen = 'requestScreen';
+  static const createTicketReply = 'createTicketReply';
+  static const payeeName = 'payeeName';
+  static const typeCode = 'typeCode';
+  static const date = 'date';
+  static const deliveryTypeCode = 'deliveryTypeCode';
+  static const saveRequest = 'saveRequest';
+  static const id = 'id';
+  static const notes = 'notes';
+  static const replyBody = 'replyBody';
+  static const submitReply = 'submitReply';
+  static const request = 'request';
+  static const paymentAccountNumber = 'paymentAccountNumber';
 
 }
